@@ -1,12 +1,23 @@
-const Category = require("../controller/categories");
+const Category = require("../models/categories");
 
 exports.categoryList = async (req, res) => {
-  const categoryList = await Category.find();
+  const categoryList = await Category.find({});
 
   if (!categoryList) {
     res.status(500).json({ success: false });
   }
   res.send(categoryList);
+};
+
+exports.categorySolo = async (req, res) => {
+  const category = await Category.findById(req.params.id);
+
+  if (!category) {
+    res
+      .status(500)
+      .json({ message: "The category with the given ID was not found." });
+  }
+  res.status(200).send(category);
 };
 
 exports.categoryCreate = async (req, res) => {
