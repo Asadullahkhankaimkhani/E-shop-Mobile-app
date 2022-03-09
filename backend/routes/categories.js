@@ -1,14 +1,7 @@
-const {Category} = require('../models/category');
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const { categoriesList } = require("../controller/categories");
 
-router.get(`/`, async (req, res) =>{
-    const categoryList = await Category.find();
+router.get(`/`, categoriesList);
 
-    if(!categoryList) {
-        res.status(500).json({success: false})
-    } 
-    res.send(categoryList);
-})
-
-module.exports =router;
+module.exports = router;

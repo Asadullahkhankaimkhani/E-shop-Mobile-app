@@ -1,14 +1,7 @@
-const {Order} = require('../models/order');
-const express = require('express');
+const express = require("express");
 const router = express.Router();
+const { orderList } = require("../controller/orders");
 
-router.get(`/`, async (req, res) =>{
-    const orderList = await Order.find();
+router.get(`/`, orderList);
 
-    if(!orderList) {
-        res.status(500).json({success: false})
-    } 
-    res.send(orderList);
-})
-
-module.exports =router;
+module.exports = router;
