@@ -46,3 +46,27 @@ exports.createProduct = async (req, res) => {
 
   res.send(product);
 };
+
+exports.productUpdate = async (req, res) => {
+  const product = await Product.findByIdAndUpdate(
+    req.params.id,
+    {
+      name: req.body.name,
+      description: req.body.description,
+      richDescription: req.body.richDescription,
+      image: req.body.image,
+      brand: req.body.brand,
+      price: req.body.price,
+      category: req.body.category,
+      countInStock: req.body.countInStock,
+      rating: req.body.rating,
+      numReviews: req.body.numReviews,
+      isFeatured: req.body.isFeatured,
+    },
+    { new: true }
+  );
+
+  if (!product) return res.status(400).send("the product cannot be created!");
+
+  res.send(product);
+};

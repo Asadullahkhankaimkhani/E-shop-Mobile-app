@@ -4,11 +4,12 @@ const {
   createProduct,
   productList,
   productSolo,
+  productUpdate,
 } = require("../controller/products");
 
 router.get(`/products`, productList);
 router.get(`product/:id`, productSolo);
-
-router.post(`/products`, createProduct);
+router.post(`/product`, createProduct);
+router.put("product/:id", productUpdate);
 
 module.exports = router;
