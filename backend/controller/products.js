@@ -70,3 +70,20 @@ exports.productUpdate = async (req, res) => {
 
   res.send(product);
 };
+
+exports.productDelete = (req, res) => {
+  Product.findByIdAndRemove(req.params.id)
+    .then((product) => {
+      return product
+        ? res.status(200).json({
+            success: true,
+            message: "the product is deleted!",
+          })
+        : res
+            .status(404)
+            .json({ success: false, message: "product not found!" });
+    })
+    .catch((err) => {
+      return res.status(500).json({ success: false, error: err });
+    });
+};
