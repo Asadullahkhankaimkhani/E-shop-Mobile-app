@@ -2,12 +2,21 @@ const { Product } = require("../models/product");
 const { Category } = require("../models/categories");
 
 exports.productList = async (req, res) => {
-  const productList = await Product.find();
+  const productList = await Product.find({}).select("_id name");
 
   if (!productList) {
     res.status(500).json({ success: false });
   }
   res.send(productList);
+};
+
+exports.productSolo = async (req, res) => {
+  const product = await Product.findById(req.params.id).populate("category");
+
+  if (!product) {
+    res.status(500).json({ success: false });
+  }
+  res.send(product);
 };
 
 exports.createProduct = async (req, res) => {
