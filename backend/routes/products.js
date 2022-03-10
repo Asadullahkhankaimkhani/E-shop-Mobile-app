@@ -8,6 +8,7 @@ const {
   productDelete,
   productCount,
   productFeature,
+  productGallery,
 } = require("../controller/products");
 
 //  Multer
@@ -45,5 +46,10 @@ router.put("product/:id", uploadOptions.single("image"), productUpdate);
 router.delete("product/:id", productDelete);
 router.get(`product/get/count`, productCount);
 router.get(`product/get/featured/:count`, productFeature);
+router.put(
+  "/gallery-images/:id",
+  uploadOptions.array("images", 10),
+  productGallery
+);
 
 module.exports = router;
