@@ -31,11 +31,13 @@ exports.createProduct = async (req, res) => {
   const file = req.file;
   if (!file) return res.status(400).send("No image in the request");
 
+  const fileName = file.filename;
+  const basePath = `${req.protocol}://${req.get("host")}/public/uploads/`;
   let product = new Product({
     name: req.body.name,
     description: req.body.description,
     richDescription: req.body.richDescription,
-    image: req.body.image,
+    image: `${basePath}${fileName}`, // "http://localhost:3000/public/upload/image-2323232"
     brand: req.body.brand,
     price: req.body.price,
     category: req.body.category,
