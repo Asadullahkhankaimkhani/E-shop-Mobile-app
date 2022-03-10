@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const { readdirSync } = require("fs");
 const cors = require("cors");
 require("dotenv/config");
-const authJwt = require("./helpers/jwt");
-const errorHandler = require("./helpers/error-handler");
+const authJwt = require("./helper/jwt");
+const errorHandler = require("./helper/error-handler");
 
 require("dotenv/config");
 
