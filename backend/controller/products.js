@@ -2,7 +2,12 @@ const { Product } = require("../models/product");
 const { Category } = require("../models/categories");
 
 exports.productList = async (req, res) => {
-  const productList = await Product.find({}).select("_id name");
+  let filter = {};
+  if (req.query.categories) {
+    filter = { category: req.query.categories.split(",") };
+  }
+
+  const productList = await Product.find(filter).populate("category");
 
   if (!productList) {
     res.status(500).json({ success: false });
@@ -86,4 +91,25 @@ exports.productDelete = (req, res) => {
     .catch((err) => {
       return res.status(500).json({ success: false, error: err });
     });
+};
+
+exports.productCount = async (req, res) => {
+  const productCount = await Product.countDocuments((count) => count);
+
+  if (!productCount) {
+    res.status(500).json({ success: false });
+  }
+  res.send({
+    productCount,
+  });
+};
+
+exports.productFeature = async (req, res) => {
+  const count = req.params.count ? req.params.count : 0;
+  const products = await Product.find({ isFeatured: true }).limit(+count);
+
+  if (!products) {
+    res.status(500).json({ success: false });
+  }
+  res.send(products);
 };
