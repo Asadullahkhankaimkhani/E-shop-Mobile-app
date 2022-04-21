@@ -6,13 +6,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React from "react";
+import ProductCard from "./ProductCard";
 
 const { width } = Dimensions.get("window");
 
-const ProductList = () => {
+const ProductList = ({ item }) => {
   return (
     <TouchableOpacity style={{ width: "50%" }}>
-      <View style={{ width: width / 2, backgroundColor: "gainsboro" }}></View>
+      <View style={{ width: width / 2, backgroundColor: "gainsboro" }}>
+        <ProductCard {...item} />
+      </View>
     </TouchableOpacity>
   );
 };

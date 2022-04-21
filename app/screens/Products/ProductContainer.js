@@ -8,6 +8,7 @@ const ProductContainer = () => {
 
   useEffect(() => {
     setProducts(data);
+
     return () => {
       setProducts([]);
     };
